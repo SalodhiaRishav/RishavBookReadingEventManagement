@@ -1,0 +1,20 @@
+﻿@{
+
+    if (Session["emailID"] != null)
+    {
+        if (Session["emailID"].ToString() == "rishav@admin.com")
+        {
+            Layout = "~/Views/Shared/AdminLayout.cshtml";
+
+        }
+        else
+        {
+            Layout = "~/Views/Shared/LoginedLayout.cshtml";
+
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/GuestLayout.cshtml";
+    }
+}

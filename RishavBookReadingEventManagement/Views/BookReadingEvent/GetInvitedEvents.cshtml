@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RishavBookReadingEventManagement.ViewModels.InvitedEventViewModels>
+
+@{
+    ViewBag.Title = "GetInvitedEvents";
+}
+
+<h2>GetInvitedEvents</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.BookTitle, "GetBookReadingEventDetails", new { id = item.ID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartTime)
+        </td>
+        <td>
+            
+            @Html.ActionLink("See Full Details", "GetBookReadingEventDetails", new { id=item.ID }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

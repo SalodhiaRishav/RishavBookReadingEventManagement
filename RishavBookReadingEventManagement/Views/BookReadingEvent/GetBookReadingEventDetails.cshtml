@@ -1,0 +1,153 @@
+﻿@model RishavBookReadingEventManagement.ViewModels.BookReadingEventDetailsViewModel
+
+@{
+    ViewBag.Title = "Event Details";
+}
+
+<h2>GetBookReadingEventDetails</h2>
+
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BookTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BookTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.OtherDetails))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.OtherDetails)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OtherDetails)
+            </dd>
+        }
+        <dt>
+            Total Invites :
+        </dt>
+        @if (!string.IsNullOrWhiteSpace(Model.InvitedEmails))
+        {
+            <dd>
+                @Model.InvitedEmails.Split(',').Count()
+            </dd>
+        }
+        else
+        {
+            <dd>
+                0
+            </dd>
+        }
+        @if (Session["userID"] != null)
+        {
+            if (Model.Date > DateTime.Now && Model.UserID == int.Parse(Session["userID"].ToString()))
+            {
+            @Html.ActionLink("Edit", "EditBookReadingEvent", new { id = Model.ID });
+            }
+
+        }
+    </dl>
+</div>
+<p>
+    @if (Session["emailID"] != null)
+    {
+        if(Session["emailID"].ToString() == "rishav@admin.com")
+        {
+                @Html.ActionLink("Back to List", "AdminHome")
+
+        }
+        else
+        {
+                @Html.ActionLink("Back to List", "Index")
+
+        }
+    }
+</p>
+
+@if (Session["emailID"] != null)
+{
+using (Html.BeginForm("PostComment", "BookReadingEvent", FormMethod.Post))
+{
+ @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Enter Comment</h4>
+        <hr />
+        @Html.HiddenFor(model => model.ID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Comments" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+}
+
+@{ 
+    Html.RenderAction("Comments", new { eventID = Model.ID });
+}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

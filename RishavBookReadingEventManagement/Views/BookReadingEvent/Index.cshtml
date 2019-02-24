@@ -1,0 +1,111 @@
+﻿@model RishavBookReadingEventManagement.ViewModels.HomePageModel
+
+@{
+    ViewBag.Title = "Book Reading Events";
+}
+
+
+<h1>Future Events</h1>
+<br>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].BookTitle)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].Date)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].Location)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].StartTime)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.FutureEvents)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.BookTitle, "GetBookReadingEventDetails", new { id = item.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("See Full Details", "GetBookReadingEventDetails", new { id = item.ID })
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+
+<br>
+<br>
+<br>
+<h1>Past Events</h1>
+<br>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].BookTitle)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].Date)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].Location)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.FutureEvents[0].StartTime)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.PastEvents)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.BookTitle, "GetBookReadingEventDetails", new { id = item.ID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("See Full Details", "GetBookReadingEventDetails", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+
+
+
+</table>
