@@ -19,13 +19,11 @@ namespace RishavBookReadingEventManagement.Controllers
         IBusinessLayerBookReadingEvent BusinessLayerBookReadingEvent;
         IBusinessLayerPostedComments BusinessLayerPostedComments;
        
-        public BookReadingEventController()
+        public BookReadingEventController(IBusinessLayerBookReadingEvent businessLayerBookReadingEvent,IBusinessLayerPostedComments businessLayerPostedComments)
         {
-            BookReadingEventUnitOfWork bookReadingEventUnitOfWork = new BookReadingEventUnitOfWork();
-            BusinessLayerBookReadingEvent = new BusinessLayerBookReadingEvent(bookReadingEventUnitOfWork);
-
-            PostCommentUnitOfWork postCommentUnitOfWork = new PostCommentUnitOfWork();
-            BusinessLayerPostedComments = new BusinessLayerPostedComments(postCommentUnitOfWork);
+          
+            BusinessLayerBookReadingEvent = businessLayerBookReadingEvent;           
+            BusinessLayerPostedComments = businessLayerPostedComments;
 
         }
         // GET: BookReadingEvent

@@ -18,10 +18,9 @@ namespace RishavBookReadingEventManagement.Controllers
     {
         IBusinessLayerUser BusinessLayerUser;
 
-        public LoginController()
-        {
-            IUserUnitOfWork userUnitOfWork = new UserUnitOfWork();
-            BusinessLayerUser = new BusinessLayerUser(userUnitOfWork);
+        public LoginController(IBusinessLayerUser businessLayerUser)
+        {            
+            BusinessLayerUser = businessLayerUser;
         }
         // GET: Login
         public ActionResult SignUp()

@@ -19,7 +19,7 @@ namespace BLL
         public BusinessLayerUser(IUserUnitOfWork userUnitOfWork)
         {
             UserUnitOfWork = userUnitOfWork;
-            UserRepository = new UserRepository(UserUnitOfWork);
+            UserRepository = new UserRepository(userUnitOfWork);
         }
         public bool CheckEmailExistence(string email)
         {
