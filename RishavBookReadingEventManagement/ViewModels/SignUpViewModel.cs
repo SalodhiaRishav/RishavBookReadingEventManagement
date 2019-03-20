@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using RishavBookReadingEventManagement.CustomValidator;
+
 using System.Linq;
 using System.Web;
 using System.Net.Http;

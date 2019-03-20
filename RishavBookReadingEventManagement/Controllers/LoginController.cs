@@ -9,12 +9,20 @@ using Shared.DTO;
 using BLL;
 using Shared.CustomException;
 using System.Web.Security;
+using Shared.Interfaces;
+using DAL.UnitOfWork;
 
 namespace RishavBookReadingEventManagement.Controllers
 {
     public class LoginController : Controller
     {
-        public BusinessLogics BusinessLogics = new BusinessLogics();
+        IBusinessLayerUser BusinessLayerUser;
+
+        public LoginController()
+        {
+            IUserUnitOfWork userUnitOfWork = new UserUnitOfWork();
+            BusinessLayerUser = new BusinessLayerUser(userUnitOfWork);
+        }
         // GET: Login
         public ActionResult SignUp()
         {
@@ -32,7 +40,7 @@ namespace RishavBookReadingEventManagement.Controllers
                     var config = new MapperConfiguration(cfg => cfg.CreateMap<SignUpViewModel, SignUpUserDTO>());
                     var mapper = config.CreateMapper();
                     SignUpUserDTO user = mapper.Map<SignUpViewModel, SignUpUserDTO>(signUpViewModel);
-                    LoginedUserDTO loginedUser = BusinessLogics.SignUp(user);
+                    LoginedUserDTO loginedUser = BusinessLayerUser.SignUp(user);
                     if (loginedUser != null)
                     {
                         FormsAuthentication.SetAuthCookie(loginedUser.Email, false);
@@ -82,7 +90,7 @@ namespace RishavBookReadingEventManagement.Controllers
                 var config = new MapperConfiguration(cfg => cfg.CreateMap<LoginUserViewModel,LoginUserDTO>());
                 var mapper = config.CreateMapper();
                 LoginUserDTO user = mapper.Map<LoginUserViewModel,LoginUserDTO>(loginUserViewModel);
-                LoginedUserDTO loginedUser = BusinessLogics.LoginUser(user);
+                LoginedUserDTO loginedUser = BusinessLayerUser.LoginUser(user);
                 if (loginedUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(loginedUser.Email, false);
@@ -113,7 +121,7 @@ namespace RishavBookReadingEventManagement.Controllers
         [HttpPost]
         public JsonResult DoesUserNameExist(string email)
         {
-            return Json(BusinessLogics.CheckEmailExistence(email));
+            return Json(BusinessLayerUser.CheckEmailExistence(email));
         }
     }
 }

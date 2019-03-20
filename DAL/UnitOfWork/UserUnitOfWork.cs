@@ -8,15 +8,8 @@ using DAL.Repositories;
 
 namespace DAL.UnitOfWork
 {
-    public class UserUnitOfWork : UnitOfWork
+    public class UserUnitOfWork : UnitOfWork,IUserUnitOfWork
     {
-        private DBcontext DBcontext;
-        public UserRepository UserRepository { get; set; }
-        public UserUnitOfWork(DBcontext dBcontext) : base(dBcontext)
-        {
-            DBcontext = dBcontext;
-            UserRepository = new UserRepository(dBcontext);
-        }
-  
+             
     }
 }

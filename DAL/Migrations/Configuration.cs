@@ -7,14 +7,14 @@ namespace DAL.Migrations
     using System.Linq;
     using DAL.Domains;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DAL.DBcontext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DAL.Dbcontext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DAL.DBcontext context)
+        protected override void Seed(Dbcontext context)
         {
 
             var users = new List<User>

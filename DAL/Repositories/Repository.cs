@@ -9,48 +9,50 @@ namespace DAL.Repositories
 {
     public class Repository<T> : IRepositories<T> where T : class
     {
-        private DBcontext DBcontext;
+        IUnitOfWork UnitOfWork;
+        public DbSet<T> DbSet;
 
-        public Repository(DBcontext dBcontext)
+        public Repository(IUnitOfWork unitOfWork)
         {
-            DBcontext = dBcontext;
+            UnitOfWork = unitOfWork;
+            DbSet = UnitOfWork.DbContext.Set<T>();
         }
-        public List<T> List { get => DBcontext.Set<T>().ToList(); }
+        public List<T> List { get => DbSet.ToList(); }
 
         public void Add(T entity)
         {
-            DBcontext.Set<T>().Add(entity);
+            DbSet.Add(entity);
             return;
         }
 
         public void AddRange(IEnumerable<T> entityList)
         {
-            DBcontext.Set<T>().AddRange(entityList);
+            DbSet.AddRange(entityList);
         }
 
         public void Delete(T entity)
         {
-            DBcontext.Set<T>().Remove(entity);
+            DbSet.Remove(entity);
         }
 
         public void DeleteRange(IEnumerable<T> entityList)
         {
-            DBcontext.Set<T>().RemoveRange(entityList);
+            DbSet.RemoveRange(entityList);
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return DBcontext.Set<T>().Where(predicate);
+            return DbSet.Where(predicate);
         }
 
         public T FindById(int Id)
         {
-            return DBcontext.Set<T>().Find(Id);
+            return DbSet.Find(Id);
         }
 
         public void Update(T entity)
         {
-            DBcontext.Entry<T>(entity).State = EntityState.Modified;
+           UnitOfWork.DbContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }

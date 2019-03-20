@@ -135,7 +135,6 @@
     <Compile Include="Controllers\BookReadingEventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="CustomValidator\CheckUserExistenceValidation.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -220,6 +219,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{77b84110-0d7f-464f-88da-f69a5b0b6a30}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{c5eec10d-7873-43a5-bfa7-4d199e957c03}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{904a05e0-2182-4502-a52b-4f6a0b8fdcf3}</Project>

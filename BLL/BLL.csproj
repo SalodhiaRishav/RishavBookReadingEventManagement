@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLayerBookReadingEvent.cs" />
+    <Compile Include="BusinessLayerPostedComments.cs" />
+    <Compile Include="BusinessLayerUser.cs" />
     <Compile Include="BusinessLogics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

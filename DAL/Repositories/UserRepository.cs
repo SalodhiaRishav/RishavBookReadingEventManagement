@@ -11,10 +11,9 @@ namespace DAL.Repositories
 {
     public class UserRepository : Repository<User>,IUserRepositories
     {
-        readonly DBcontext DBcontext;
-        public UserRepository(DBcontext dBcontext) : base(dBcontext)
+        public UserRepository(IUserUnitOfWork userUnitOfWork) : base(userUnitOfWork)
         {
-            DBcontext = dBcontext;
+            
         }
 
 

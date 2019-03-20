@@ -10,10 +10,10 @@ namespace DAL.Repositories
 {
    public class PostedCommentRepository : Repository<PostedComment>,IPostedCommentRepository
     {
-        private DBcontext DBcontext;
-        public PostedCommentRepository(DBcontext dBcontext) : base(dBcontext)
+       
+        public PostedCommentRepository(IPostedCommentUnitOfWork postedCommentUnitOfWork) : base(postedCommentUnitOfWork)
         {
-            DBcontext = dBcontext;
+           
         }
     }
 }

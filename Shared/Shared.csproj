@@ -57,6 +57,11 @@
     <Compile Include="DTO\SignUpUserDTO.cs" />
     <Compile Include="HelperFunctions\HelperFunctions.cs" />
     <Compile Include="Interfaces\IBookReadingEventRepositories.cs" />
+    <Compile Include="Interfaces\IBookReadingEventUnitOfWork.cs" />
+    <Compile Include="Interfaces\IBusinessLayerBookReadingEvent.cs" />
+    <Compile Include="Interfaces\IBusinessLayerPostedComments.cs" />
+    <Compile Include="Interfaces\IBusinessLayerUser.cs" />
+    <Compile Include="Interfaces\IPostedCommentUnitOfWork.cs" />
     <Compile Include="Interfaces\IDomain.cs" />
     <Compile Include="Interfaces\IInvitedToEventsRepository.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
@@ -64,6 +69,7 @@
     <Compile Include="Interfaces\IRepositories.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUserRepositories.cs" />
+    <Compile Include="Interfaces\IUserUnitOfWork.cs" />
     <Compile Include="Logging\DatabaseInterceptingLogging.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="OperationFormat\OperationFormat.cs" />

@@ -3,9 +3,9 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace DAL
 {
-    public class DBcontext : DbContext
-    {
-        public DBcontext() : base("DBConnectionString")
+    public class Dbcontext: DbContext
+    { 
+        public Dbcontext() : base("DBConnectionString")
         {
            
         }

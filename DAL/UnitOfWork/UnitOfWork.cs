@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +12,19 @@ namespace DAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DBcontext DBcontext;
-        public UnitOfWork(DBcontext dBcontext)
+        private Dbcontext DBcontext;
+        public UnitOfWork()
         {
-            DBcontext = dBcontext;
+            DBcontext = new Dbcontext();
         }
+
+        public DbContext DbContext { get { return DBcontext; } }
+
         public bool Commit()
         {
             try
             {
-                int savedChanges = DBcontext.SaveChanges();
+                int savedChanges = DbContext.SaveChanges();
             }
             catch(DataException)
             {

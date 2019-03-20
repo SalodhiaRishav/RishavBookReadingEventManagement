@@ -8,15 +8,8 @@ using Shared.Interfaces;
 
 namespace DAL.UnitOfWork
 {
-   public class BookReadingEventUnitOfWork : UnitOfWork
-    {
-        private DBcontext DBcontext;
-        public BookReadingEventRepository BookReadingEventRepository;
-        public BookReadingEventUnitOfWork(DBcontext dBcontext):base(dBcontext)
-        {
-            DBcontext = dBcontext;
-            BookReadingEventRepository = new BookReadingEventRepository(DBcontext);
-        }
+   public class BookReadingEventUnitOfWork : UnitOfWork,IBookReadingEventUnitOfWork
+    { 
 
        
     }

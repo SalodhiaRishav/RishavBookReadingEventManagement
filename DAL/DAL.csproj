@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseConfiguration.cs" />
-    <Compile Include="DBcontext.cs" />
+    <Compile Include="Dbcontext.cs" />
     <Compile Include="Domains\BookReadingEvent.cs" />
     <Compile Include="Domains\Domain.cs" />
     <Compile Include="Domains\InvitedToEvent.cs" />
@@ -81,7 +81,6 @@
     <Compile Include="Migrations\201902241946524_changePostedCommentTableagain.Designer.cs">
       <DependentUpon>201902241946524_changePostedCommentTableagain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\InvitedToEventRepository.cs" />
     <Compile Include="Repositories\PostedCommentRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Migrations\201902202036450_InitialCreate.cs" />

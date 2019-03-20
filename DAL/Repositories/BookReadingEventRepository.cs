@@ -12,15 +12,15 @@ namespace DAL.Repositories
 {
     public class BookReadingEventRepository : Repository<BookReadingEvent>,IBookReadingEventRepositories
     {
-        private DBcontext DBcontext;
-       public BookReadingEventRepository(DBcontext dBcontext):base(dBcontext)
+   
+       public BookReadingEventRepository(IBookReadingEventUnitOfWork bookReadingEventUnitOfWork):base(bookReadingEventUnitOfWork)
         {
-            DBcontext = dBcontext;
+          
         }
 
         public List<object> GetInvitedEvents(string email)
         {
-            var events = DBcontext.BookReadingEvents.ToList();
+            var events = DbSet.ToList();
             List<object> invitedEventList = new List<object>();
             foreach(BookReadingEvent evt in events)
             {

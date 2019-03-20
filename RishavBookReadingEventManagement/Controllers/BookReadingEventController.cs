@@ -9,17 +9,30 @@ using Shared.DTO;
 using AutoMapper;
 using Shared.CustomDataTypes;
 using Shared.CustomException;
+using Shared.Interfaces;
+using DAL.UnitOfWork;
 
 namespace RishavBookReadingEventManagement.Controllers
 {
     public class BookReadingEventController : Controller
     {
-        BusinessLogics businessLogics = new BusinessLogics();
+        IBusinessLayerBookReadingEvent BusinessLayerBookReadingEvent;
+        IBusinessLayerPostedComments BusinessLayerPostedComments;
+       
+        public BookReadingEventController()
+        {
+            BookReadingEventUnitOfWork bookReadingEventUnitOfWork = new BookReadingEventUnitOfWork();
+            BusinessLayerBookReadingEvent = new BusinessLayerBookReadingEvent(bookReadingEventUnitOfWork);
+
+            PostCommentUnitOfWork postCommentUnitOfWork = new PostCommentUnitOfWork();
+            BusinessLayerPostedComments = new BusinessLayerPostedComments(postCommentUnitOfWork);
+
+        }
         // GET: BookReadingEvent
        
         public ActionResult Index()
         {
-            List<BookReadingEventDTO> eventListDTO = businessLogics.GetAllEvents();
+            List<BookReadingEventDTO> eventListDTO = BusinessLayerBookReadingEvent.GetAllEvents();
             HomePageModel homePageModel = new HomePageModel();
             if (Session["userID"] == null)
             {
@@ -75,7 +88,7 @@ namespace RishavBookReadingEventManagement.Controllers
                     var mapper = config.CreateMapper();
                     BookReadingEventDTO bookReadingEventDTO = mapper.Map<CreateNewEventViewModel, BookReadingEventDTO>(createNewEventViewModel);
                     bookReadingEventDTO.UserID = int.Parse(Session["userID"].ToString());
-                    businessLogics.CreateNewBookEvent(bookReadingEventDTO);
+                    BusinessLayerBookReadingEvent.CreateNewBookEvent(bookReadingEventDTO);
                     return RedirectToAction("Index");
                 }
             }
@@ -93,7 +106,7 @@ namespace RishavBookReadingEventManagement.Controllers
 
         public ActionResult GetBookReadingEventDetails(int id)
         {
-            BookReadingEventDTO bookReadingEventDTO = businessLogics.GetBookReadingEventDetails(id);
+            BookReadingEventDTO bookReadingEventDTO = BusinessLayerBookReadingEvent.GetBookReadingEventDetails(id);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<BookReadingEventDTO,BookReadingEventDetailsViewModel>());
             var mapper = config.CreateMapper();
             BookReadingEventDetailsViewModel bookReadingEventDetailsViewModel = mapper.Map<BookReadingEventDTO, BookReadingEventDetailsViewModel>(bookReadingEventDTO);
@@ -106,7 +119,7 @@ namespace RishavBookReadingEventManagement.Controllers
             try
             {
                 int userID = int.Parse(Session["userID"].ToString());
-                List<BookReadingEventDTO> myEventListDTO = businessLogics.GetMyEvents(userID);
+                List<BookReadingEventDTO> myEventListDTO = BusinessLayerBookReadingEvent.GetMyEvents(userID);
                 var config = new MapperConfiguration(cfg => cfg.CreateMap<BookReadingEventDTO, MyBookEventsViewModels>());
                 var mapper = config.CreateMapper();
                 List<MyBookEventsViewModels> myBookEvents = mapper.Map<List<BookReadingEventDTO>, List<MyBookEventsViewModels>>(myEventListDTO);
@@ -125,7 +138,7 @@ namespace RishavBookReadingEventManagement.Controllers
         [Authorize]
         public ActionResult EditBookReadingEvent(int id)
         {
-            BookReadingEventDTO bookReadingEventDTO = businessLogics.GetBookReadingEventDetails(id);
+            BookReadingEventDTO bookReadingEventDTO = BusinessLayerBookReadingEvent.GetBookReadingEventDetails(id);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<BookReadingEventDTO, EditBookReadingEventViewModel>());
             var mapper = config.CreateMapper();
             EditBookReadingEventViewModel editBookEvent = mapper.Map<BookReadingEventDTO, EditBookReadingEventViewModel>(bookReadingEventDTO);
@@ -143,8 +156,8 @@ namespace RishavBookReadingEventManagement.Controllers
                     var config = new MapperConfiguration(cfg => cfg.CreateMap<EditBookReadingEventViewModel, BookReadingEventDTO>());
                     var mapper = config.CreateMapper();
                     BookReadingEventDTO bookReadingEventDTO = mapper.Map<EditBookReadingEventViewModel, BookReadingEventDTO>(editBookReadingEventViewModel);
-                 //   bookReadingEventDTO.UserID = int.Parse(Session["userID"].ToString());
-                    businessLogics.EditBookReadingEvent(bookReadingEventDTO);
+                    //   bookReadingEventDTO.UserID = int.Parse(Session["userID"].ToString());
+                    BusinessLayerBookReadingEvent.EditBookReadingEvent(bookReadingEventDTO);
                     if(Session["emailID"].ToString()=="rishav@admin.com")
                     {
                         return RedirectToAction("AdminHome");
@@ -164,7 +177,7 @@ namespace RishavBookReadingEventManagement.Controllers
         public ActionResult GetInvitedEvents()
         {
             string email = Session["emailID"].ToString();
-            List<BookReadingEventDTO> list = businessLogics.InvitedEvents(email);
+            List<BookReadingEventDTO> list = BusinessLayerBookReadingEvent.InvitedEvents(email);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<BookReadingEventDTO, InvitedEventViewModels>());
             var mapper = config.CreateMapper();
             List<InvitedEventViewModels> invitedEventList= mapper.Map<List<BookReadingEventDTO>, List<InvitedEventViewModels>>(list);
@@ -186,7 +199,7 @@ namespace RishavBookReadingEventManagement.Controllers
                     postedCommentDTO.BookReadingEventID = bookReadingEventDetailsViewModel.ID;
                     postedCommentDTO.Comments = bookReadingEventDetailsViewModel.Comments;
                     postedCommentDTO.EmailID = Session["emailID"].ToString();
-                    businessLogics.PostComment(postedCommentDTO);
+                    BusinessLayerPostedComments.PostComment(postedCommentDTO);
                     return RedirectToAction("GetBookReadingEventDetails", new { id = bookReadingEventDetailsViewModel.ID });
                 }
             }
@@ -200,7 +213,7 @@ namespace RishavBookReadingEventManagement.Controllers
         [ChildActionOnly]
         public ActionResult Comments(int eventID)
         {
-            List<PostedCommentDTO> postedCommentDTOs = businessLogics.GetComments(eventID);
+            List<PostedCommentDTO> postedCommentDTOs = BusinessLayerPostedComments.GetComments(eventID);
             var config = new MapperConfiguration(cfg => cfg.CreateMap<PostedCommentDTO,PostedCommentViewModel>());
             var mapper = config.CreateMapper();
             List<PostedCommentViewModel> comments= mapper.Map<List<PostedCommentDTO>,List<PostedCommentViewModel>>(postedCommentDTOs);
@@ -211,7 +224,7 @@ namespace RishavBookReadingEventManagement.Controllers
         [Authorize]
         public ActionResult AdminHome()
         {
-            List<BookReadingEventDTO> eventListDTO = businessLogics.GetAllEvents();
+            List<BookReadingEventDTO> eventListDTO = BusinessLayerBookReadingEvent.GetAllEvents();
             var config = new MapperConfiguration(cfg => cfg.CreateMap<BookReadingEventDTO, AdminHomeViewModel>());
             var mapper = config.CreateMapper();
             List<AdminHomeViewModel> adminHomeViewModels = mapper.Map<List<BookReadingEventDTO>, List<AdminHomeViewModel>>(eventListDTO);

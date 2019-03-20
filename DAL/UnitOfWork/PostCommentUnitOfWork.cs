@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Repositories;
+using Shared.Interfaces;
 
 namespace DAL.UnitOfWork
 {
-    public class PostCommentUnitOfWork : UnitOfWork
+    public class PostCommentUnitOfWork : UnitOfWork,IPostedCommentUnitOfWork
     {
-        private DBcontext DBcontext;
-        public PostedCommentRepository PostedCommentRepository;
-        public PostCommentUnitOfWork(DBcontext dBcontext) : base(dBcontext)
-        {
-            DBcontext = dBcontext;
-            PostedCommentRepository = new PostedCommentRepository(DBcontext);
-        }
+        
     }
 }
