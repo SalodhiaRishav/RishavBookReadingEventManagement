@@ -22,22 +22,26 @@ namespace DAL.Repositories
         public void Add(T entity)
         {
             DbSet.Add(entity);
+            UnitOfWork.Commit();
             return;
         }
 
         public void AddRange(IEnumerable<T> entityList)
         {
             DbSet.AddRange(entityList);
+            UnitOfWork.Commit();
         }
 
         public void Delete(T entity)
         {
             DbSet.Remove(entity);
+            UnitOfWork.Commit();
         }
 
         public void DeleteRange(IEnumerable<T> entityList)
         {
             DbSet.RemoveRange(entityList);
+            UnitOfWork.Commit();
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
@@ -53,6 +57,7 @@ namespace DAL.Repositories
         public void Update(T entity)
         {
            UnitOfWork.DbContext.Entry(entity).State = EntityState.Modified;
+            UnitOfWork.Commit();
         }
     }
 }

@@ -15,11 +15,10 @@ namespace BLL
 {
     public class BusinessLayerUser : IBusinessLayerUser
     {
-        private IUserUnitOfWork UserUnitOfWork;
+       
         private IUserRepositories UserRepository;
         public BusinessLayerUser(IUserRepositories userRepositories)
         {
-            //UserUnitOfWork = userUnitOfWork;
             UserRepository = userRepositories;
         }
         public bool CheckEmailExistence(string email)
@@ -54,9 +53,9 @@ namespace BLL
             user.CreatedOn = DateTime.Now;
             user.ModifiedOn = DateTime.Now;
             UserRepository.Add(user);
-            bool isCommited = false;
+            bool isCommited = true;
 
-            isCommited = UserUnitOfWork.Commit();
+           
 
 
             if (isCommited)

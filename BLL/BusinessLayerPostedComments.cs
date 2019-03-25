@@ -15,10 +15,10 @@ namespace BLL
     public class BusinessLayerPostedComments : IBusinessLayerPostedComments
     {
         private IPostedCommentRepository PostedCommentRepository;
-        private IPostedCommentUnitOfWork PostedCommentUnitOfWork;
+    
         public BusinessLayerPostedComments(IPostedCommentRepository postedCommentRepository)
         {
-            //PostedCommentUnitOfWork = postedCommentUnitOfWork;
+          
             PostedCommentRepository = postedCommentRepository;
         }
         public List<PostedCommentDTO> GetComments(int eventID)
@@ -39,7 +39,7 @@ namespace BLL
             postedComment.CreatedOn = DateTime.Now;
             postedComment.ModifiedOn = DateTime.Now;
             PostedCommentRepository.Add(postedComment);
-            PostedCommentUnitOfWork.Commit();
+            
         }
     }
 }
