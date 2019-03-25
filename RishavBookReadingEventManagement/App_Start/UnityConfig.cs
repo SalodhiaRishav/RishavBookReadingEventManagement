@@ -1,6 +1,7 @@
 using System;
-
+using DAL.RepositoryInterfaces;
 using Unity;
+using DAL.Repositories;
 using DAL.UnitOfWork;
 using Shared.Interfaces;
 using BLL;
@@ -50,6 +51,9 @@ namespace RishavBookReadingEventManagement
             container.RegisterType<IBookReadingEventUnitOfWork,BookReadingEventUnitOfWork>();
             container.RegisterType<IBusinessLayerPostedComments,BusinessLayerPostedComments>();
             container.RegisterType<IPostedCommentUnitOfWork, PostCommentUnitOfWork>();
+            container.RegisterType<IBookReadingEventRepositories,BookReadingEventRepository>();
+            container.RegisterType<IUserRepositories,UserRepository>();
+            container.RegisterType<IPostedCommentRepository, PostedCommentRepository>();
         }
     }
 }

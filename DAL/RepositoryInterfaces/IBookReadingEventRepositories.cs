@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Shared.Interfaces
-{
-    public interface IBookReadingEventRepositories 
+using Shared.Interfaces;
+using DAL.Domains;
+namespace DAL.RepositoryInterfaces
+{ 
+    public interface IBookReadingEventRepositories : IRepositories<BookReadingEvent>
     {
         List<object> GetInvitedEvents(string email);
       

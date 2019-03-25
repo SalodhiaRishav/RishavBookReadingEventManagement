@@ -99,6 +99,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookReadingEventRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IBookReadingEventRepositories.cs" />
+    <Compile Include="RepositoryInterfaces\IPostedCommentRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IUserRepositories.cs" />
     <Compile Include="UnitOfWork\BookReadingEventUnitOfWork.cs" />
     <Compile Include="UnitOfWork\PostCommentUnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />

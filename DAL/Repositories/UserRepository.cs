@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Domains;
+using DAL.RepositoryInterfaces;
 using Shared.Interfaces;
 
 

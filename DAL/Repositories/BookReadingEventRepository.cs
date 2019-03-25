@@ -7,6 +7,7 @@ using DAL.Domains;
 using DAL;
 using System.Data.Entity;
 using Shared.Interfaces;
+using DAL.RepositoryInterfaces;
 
 namespace DAL.Repositories
 {

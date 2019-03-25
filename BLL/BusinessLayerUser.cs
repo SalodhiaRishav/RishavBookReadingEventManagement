@@ -9,17 +9,18 @@ using DAL.Repositories;
 using DAL.UnitOfWork;
 using Shared.DTO;
 using Shared.Interfaces;
+using DAL.RepositoryInterfaces;
 
 namespace BLL
 {
     public class BusinessLayerUser : IBusinessLayerUser
     {
         private IUserUnitOfWork UserUnitOfWork;
-        private UserRepository UserRepository;
-        public BusinessLayerUser(IUserUnitOfWork userUnitOfWork)
+        private IUserRepositories UserRepository;
+        public BusinessLayerUser(IUserRepositories userRepositories)
         {
-            UserUnitOfWork = userUnitOfWork;
-            UserRepository = new UserRepository(userUnitOfWork);
+            //UserUnitOfWork = userUnitOfWork;
+            UserRepository = userRepositories;
         }
         public bool CheckEmailExistence(string email)
         {

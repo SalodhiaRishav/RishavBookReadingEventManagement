@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DAL.Domains;
 using DAL.Repositories;
+using DAL.RepositoryInterfaces;
 using DAL.UnitOfWork;
 using Shared.DTO;
 using Shared.Interfaces;
@@ -14,12 +15,14 @@ namespace BLL
 {
     public class BusinessLayerBookReadingEvent : IBusinessLayerBookReadingEvent
     {
-        private BookReadingEventRepository BookReadingEventRepository;
+        private IBookReadingEventRepositories BookReadingEventRepository;
+    //    private BookReadingEventRepository BookReadingEventRepository;
         private IBookReadingEventUnitOfWork BookReadingEventUnitOfWork;
-        public BusinessLayerBookReadingEvent(IBookReadingEventUnitOfWork bookReadingEventUnitOfWork)
+        public BusinessLayerBookReadingEvent(IBookReadingEventRepositories bookReadingEventRepositories)
         {          
-            BookReadingEventUnitOfWork = bookReadingEventUnitOfWork;
-            BookReadingEventRepository = new BookReadingEventRepository(bookReadingEventUnitOfWork);
+            //BookReadingEventUnitOfWork = bookReadingEventUnitOfWork;
+            BookReadingEventRepository = bookReadingEventRepositories;
+        //    BookReadingEventRepository = new BookReadingEventRepository(bookReadingEventUnitOfWork);
         }
 
         public void CreateNewBookEvent(BookReadingEventDTO bookReadingEventDTO)

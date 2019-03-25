@@ -8,17 +8,18 @@ using DAL.Domains;
 using DAL.Repositories;
 using Shared.DTO;
 using Shared.Interfaces;
+using DAL.RepositoryInterfaces;
 
 namespace BLL
 {
     public class BusinessLayerPostedComments : IBusinessLayerPostedComments
     {
-        private PostedCommentRepository PostedCommentRepository;
+        private IPostedCommentRepository PostedCommentRepository;
         private IPostedCommentUnitOfWork PostedCommentUnitOfWork;
-        public BusinessLayerPostedComments(IPostedCommentUnitOfWork postedCommentUnitOfWork)
+        public BusinessLayerPostedComments(IPostedCommentRepository postedCommentRepository)
         {
-            PostedCommentUnitOfWork = postedCommentUnitOfWork;
-            PostedCommentRepository = new PostedCommentRepository(PostedCommentUnitOfWork);
+            //PostedCommentUnitOfWork = postedCommentUnitOfWork;
+            PostedCommentRepository = postedCommentRepository;
         }
         public List<PostedCommentDTO> GetComments(int eventID)
         {
